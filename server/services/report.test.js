@@ -3,6 +3,7 @@ const rimraf = require("rimraf")
 const fs = require('fs')
 const path = require('path')
 const os = require('os')
+const { utimes } = require('utimes')
 
 
 let files = []
@@ -23,6 +24,7 @@ afterEach(() => {
   if (fs.existsSync(folder)){
     rimraf.sync(folder)
   }
+  folder = path.resolve(process.cwd(), 'features-for-tests')
 })
 
 describe('#Services - report', () => {
@@ -33,9 +35,15 @@ describe('#Services - report', () => {
       expect(result).toEqual([])
     })
   
-    test('Get the list of files', () => {
+    test('Get the list of files', async () => {
+      folder = path.resolve(os.tmpdir(), 'features-for-tests')
+      fs.mkdirSync(folder)
+
       fs.writeFileSync(folder + '/tmp1.txt', 'test content')
       fs.writeFileSync(folder + '/tmp2.txt', 'test content')
+      
+      utimes(folder + '/tmp1.txt', 447775200000) // 1984-03-10T14:00:00.000Z
+
       let result = Report(folder).list()
       const expectedResult = [{
         name: 'tmp2.txt'

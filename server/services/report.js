@@ -73,7 +73,7 @@ module.exports = function (folder) {
         let stat = fs.statSync(`${path.resolve(folder, name)}`)
         return {
           name,
-          createdDate: new Date(stat.ctime)
+          createdDate: new Date(stat.mtime)
         }
       })
       .sort((a, b) => b.createdDate.getTime() - a.createdDate.getTime())
