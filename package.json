@@ -1,0 +1,66 @@
+{
+  "name": "@restqa/sidekick-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon -e js index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/restqa/sidekick-server.git"
+  },
+  "bin": {
+    "restqa-report-html": "./bin/report"
+  },
+  "keywords": [
+    "api",
+    "cucumber-export",
+    "test",
+    "cucumber",
+    "restqa"
+  ],
+  "author": "Olivier Rodomond",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/restqa/sidekick-server/issues"
+  },
+  "homepage": "https://github.com/restqa/sidekick-server#readme",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "jest": "^26.6.3",
+    "jest-runner-eslint": "^0.10.0",
+    "nodemon": "^2.0.7",
+    "rimraf": "^3.0.2"
+  },
+  "jest": {
+    "projects": [
+      {
+        "displayName": "test"
+      },
+      {
+        "runner": "jest-runner-eslint",
+        "displayName": "lint",
+        "testMatch": [
+          "<rootDir>/**/*.js"
+        ]
+      }
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "env": {
+        "es6": true
+      }
+    }
+  },
+  "dependencies": {
+    "fastify": "^3.11.0",
+    "multiple-cucumber-html-reporter": "^1.18.0"
+  }
+}

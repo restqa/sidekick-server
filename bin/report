@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const path = require('path')
+const { Report } = require('../server/services')
+
+try {
+
+  let [
+    fileName,
+    exportFolder
+  ] = process.argv.slice(2)
+  
+  if ( !fileName || false === fs.existsSync(fileName) ) {
+    throw new Error(`Please specify a valid file name`)
+  }
+
+  if (exportFolder) {
+    if (false === fs.existsSync(exportFolder)) {
+      throw new Error(`The folder ${exportFolder} doesn]t exist.`)
+    }
+  } else {
+    exportFolder = exportFolder || path.resolve(process.cwd(), 'reports')
+    if (false === fs.existsSync(exportFolder)) {
+      fs.mkdirSync(exportFolder)
+    }
+  }
+
+  const report = Report(exportFolder)
+  const content = JSON.parse(fs.readFileSync(fileName).toString('utf-8'))
+  const id = report.create(content, true)
+
+  console.log('Export generated into the folder:', path.resolve(exportFolder))
+} catch (err) {
+  console.log('\n')
+  console.log(err.message)
+  console.log('\n')
+}
+
