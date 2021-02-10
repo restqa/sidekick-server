@@ -1,7 +1,7 @@
 {
   "name": "@restqa/sidekick-server",
   "version": "0.0.4",
-  "description": "",
+  "description": "A sideKick Server to support different feature of RestQA",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "fastify": "^3.11.0",
+    "fastify-static": "^3.4.0",
     "multiple-cucumber-html-reporter": "^1.18.0"
   }
 }

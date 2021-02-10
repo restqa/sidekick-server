@@ -4,6 +4,10 @@ const path = require('path')
 const os = require('os')
 const rimraf = require("rimraf")
 
+beforeEach(() => {
+  jest.resetModules()
+})
+
 describe('#Server - index', () => {
 
   test('return 404 with json message if the route doesni\'t exits and accept content is application/json ', async () => {
@@ -77,6 +81,80 @@ describe('#Server - index', () => {
     expect(response.headers['content-type']).toBe('application/json; charset=utf-8') 
     expect(JSON.parse(response.body)).toEqual([])
     rimraf.sync(folder)
+  })
+
+  test('Create a new report', async () => {
+
+    jest.mock('./services', () => {
+      return {
+        Report: () => {
+          return {
+            create: jest.fn().mockReturnValue('xxx-yyy-zzz')
+          }
+        }
+      }
+    })
+
+    const options = {
+      exportFolder: os.tmpdir()
+    }
+
+    const _Server = require('./index')
+    const app = _Server(options)
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/reports',
+      headers: {
+        'accept': 'application/json'
+      },
+      body: {
+        id: 'xxx-yyy-zzz'
+      }
+    })
+    expect(response.statusCode).toBe(201) 
+    expect(response.headers['content-type']).toBe('application/json; charset=utf-8') 
+    const expectedResponse = {
+      url: 'http://localhost:80/xxx-yyy-zzz'
+    }
+    expect(JSON.parse(response.body)).toEqual(expectedResponse)
+  })
+
+  test('Create a new report', async () => {
+
+    jest.mock('./services', () => {
+      return {
+        Report: () => {
+          return {
+            create: jest.fn().mockReturnValue('xxx-yyy-zzz')
+          }
+        }
+      }
+    })
+
+    const options = {
+      exportFolder: os.tmpdir()
+    }
+
+    const _Server = require('./index')
+    const app = _Server(options)
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/reports',
+      headers: {
+        'accept': 'application/json'
+      },
+      body: {
+        id: 'xxx-yyy-zzz'
+      }
+    })
+    expect(response.statusCode).toBe(201) 
+    expect(response.headers['content-type']).toBe('application/json; charset=utf-8') 
+    const expectedResponse = {
+      url: 'http://localhost:80/xxx-yyy-zzz'
+    }
+    expect(JSON.parse(response.body)).toEqual(expectedResponse)
   })
 })
 

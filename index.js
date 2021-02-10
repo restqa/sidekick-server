@@ -7,12 +7,14 @@ const {
 
 const options = {
   exportFolder: EXPORT_FOLDER ||  __dirname + '/reports/', 
+  logger: true
 }
 
-Server(options)
-  .listen(PORT, '0.0.0.0', (err, address) => {
-    if (err) {
-      fastify.log.error(err)
-      process.exit(1)
-    }
-  })
+const server = Server(options)
+server.listen(PORT, '0.0.0.0', (err, address) => {
+  if (err) {
+    server.log.error(err)
+    process.exit(1)
+  }
+  server.log.info('Server running on the port', PORT)
+})

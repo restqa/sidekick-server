@@ -23,37 +23,3 @@ const App = function(options = {}) {
 }
 
 module.exports = App
-
-
-/*
-express()
-  .disable('x-powered-by')
-  .set('trust proxy', true)
-  .use(express.json({limit:'50mb'}))
-  .use(express.static($.config.exportFolder))
-  .get('/latest', (req, res) => {
-    let item = Report.list()[0]
-    res.redirect(`./${item.name}`)
-  })
-  .get('/', (req, res) => {
-    let result = Report.list().map(item => {
-      return `<a href="./${item.name}/" target="blank">${item.name}</a> - ${item.createdDate}<br/>`
-    })
-
-    res
-      .set('application/html')
-      .send(result.join(''))
-  })
-  .post('/', (req, res) => {
-    let id = Report.create(req.body)
-    res
-      .status(201)
-      .json({
-        url: `${req.protocol}://${req.get('host')}/${id}`
-      })
-  })
-  .use((err, req,res, next) => res.send(err.statusCode || 500, err.message))
-  .listen($.config.port, () => {
-    console.log(`Server started on the port: ${$.config.port}`)
-  })
-  */
