@@ -1,6 +1,6 @@
 {
   "name": "@restqa/sidekick-server",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A sideKick Server to support different feature of RestQA",
   "main": "index.js",
   "scripts": {
