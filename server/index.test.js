@@ -12,7 +12,9 @@ describe('#Server - index', () => {
 
   test('return 404 with json message if the route doesni\'t exits and accept content is application/json ', async () => {
 
-    const app = Server()
+    const app = Server({
+      exportFolder: '/tmp'
+    })
 
     const response = await app.inject({
       method: 'GET',
@@ -28,7 +30,9 @@ describe('#Server - index', () => {
 
   test('return 404 with text message if the route doesn\'t exits and accept content is text/html', async () => {
 
-    const app = Server()
+    const app = Server({
+      exportFolder: '/tmp'
+    })
 
     const response = await app.inject({
       method: 'GET',
@@ -44,7 +48,9 @@ describe('#Server - index', () => {
 
   test('Return The welcome response body', async () => {
 
-    const app = Server()
+    const app = Server({
+      exportFolder: '/tmp'
+    })
     const response = await app.inject({
       method: 'GET',
       url: '/welcome',
